@@ -51,7 +51,7 @@ public class DictionaryServiceImpl implements DictionaryService{
         for (String slang : dictionary.keySet()) {
             String definition = dictionary.get(slang);
             if (definition.contains(keyDefinition)) {
-                result.add(definition);
+                result.add(slang);
             }
         }
         return result;
