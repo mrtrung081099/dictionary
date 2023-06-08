@@ -3,15 +3,14 @@ package services;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.LogManager;
-
+import java.util.*;
 public class DictionaryServiceImpl implements DictionaryService{
-    public static Map<String, String> dictionary;
+    private final Map<String, String> dictionary;
+    private final List<String> searchHistory;
 
     public DictionaryServiceImpl() {
         dictionary = new HashMap<>();
+        searchHistory = new ArrayList<>();
     }
 
     @Override
@@ -29,6 +28,19 @@ public class DictionaryServiceImpl implements DictionaryService{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getBySlangWord(String slangWord) {
+        if(slangWord == null || slangWord.isEmpty())
+            return null;
+        searchHistory.add(slangWord);
+        return dictionary.get(slangWord);
+    }
+
+    @Override
+    public List<String> getListHistorySearch() {
+        return searchHistory;
     }
 
 }
