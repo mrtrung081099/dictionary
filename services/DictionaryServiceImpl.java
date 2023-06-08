@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 public class DictionaryServiceImpl implements DictionaryService{
-    private final Map<String, String> dictionary;
+    private Map<String, String> dictionary;
     private final List<String> searchHistory;
 
     public DictionaryServiceImpl() {
@@ -41,6 +41,20 @@ public class DictionaryServiceImpl implements DictionaryService{
     @Override
     public List<String> getListHistorySearch() {
         return searchHistory;
+    }
+
+    @Override
+    public List<String> getListByDefinition(String keyDefinition) {
+        if(keyDefinition == null || keyDefinition.isEmpty())
+            return null;
+        List<String> result = new ArrayList<>();
+        for (String slang : dictionary.keySet()) {
+            String definition = dictionary.get(slang);
+            if (definition.contains(keyDefinition)) {
+                result.add(slang);
+            }
+        }
+        return result;
     }
 
 }

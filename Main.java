@@ -1,9 +1,5 @@
 import enums.FilePath;
-import services.DictionaryService;
 import services.DictionaryServiceImpl;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,5 +8,6 @@ public class Main {
         System.out.println(dictionaryService.getBySlangWord("Slag"));
         System.out.println(dictionaryService.getBySlangWord("#1"));
         System.out.println(dictionaryService.getListHistorySearch());
+        System.out.println(dictionaryService.getListByDefinition("W"));
     }
 }
