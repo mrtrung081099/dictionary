@@ -1,13 +1,13 @@
+import enums.FilePath;
 import services.DictionaryService;
+import services.DictionaryServiceImpl;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
-    private final DictionaryService dictionaryService;
-
-    public Main(DictionaryService dictionaryService) {
-        this.dictionaryService = dictionaryService;
-    }
-
     public static void main(String[] args) {
-        System.out.println("Main :");
+        DictionaryServiceImpl dictionaryService =new DictionaryServiceImpl();
+        dictionaryService.loadDictionaryFromFile(FilePath.SLANG.url);
     }
 }
