@@ -9,5 +9,6 @@ public class Main {
         System.out.println(dictionaryService.getBySlangWord("#1"));
         System.out.println(dictionaryService.getListHistorySearch());
         System.out.println(dictionaryService.getListByDefinition("W"));
+        dictionaryService.addSlang("#1","number on");
     }
 }

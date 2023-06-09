@@ -7,4 +7,5 @@ public interface DictionaryService {
     String getBySlangWord(String slangWord);
     List<String> getListHistorySearch();
     List<String> getListByDefinition(String keyDefinition);
+    void addSlang(String slang, String definition);
 }
