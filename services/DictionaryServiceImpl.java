@@ -7,7 +7,7 @@ import java.util.*;
 public class DictionaryServiceImpl implements DictionaryService{
     private Map<String, String> dictionary;
     private final List<String> searchHistory;
-    private Scanner scanner;
+    private final Scanner scanner;
     public DictionaryServiceImpl() {
         dictionary = new HashMap<>();
         searchHistory = new ArrayList<>();
@@ -85,6 +85,17 @@ public class DictionaryServiceImpl implements DictionaryService{
         }
         System.out.println("Thêm slang word thành công !");
     }
+
+    @Override
+    public void delSlang(String slang) {
+        if (dictionary.containsKey(slang)) {
+            dictionary.remove(slang);
+            System.out.println("Xóa slang word thành công !");
+        } else {
+            System.out.println("Slang word không tồn tại !");
+        }
+    }
+
     private boolean isEmpty(String string){
         return string == null || string.isEmpty();
     }

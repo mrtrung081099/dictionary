@@ -8,4 +8,5 @@ public interface DictionaryService {
     List<String> getListHistorySearch();
     List<String> getListByDefinition(String keyDefinition);
     void addSlang(String slang, String definition);
+    void delSlang(String slang);
 }
