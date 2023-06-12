@@ -96,6 +96,31 @@ public class DictionaryServiceImpl implements DictionaryService{
         }
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            System.out.println("-----  LẬP TRÌNH ỨNG DỤNG JAVA : SLANG WORD  -----");
+            System.out.println("-----  Các chức năng  -----");
+            System.out.println("1. Tìm kiếm theo slang word.");
+            System.out.println("2. Tìm kiếm theo definition, hiển thị ra tất cả các slang words mà trong defintion có chứa keyword gõ vào.");
+            System.out.println("3. Hiển thị history, danh sách các slang word đã tìm kiếm.");
+            System.out.println("4. Add 1 slang words mới.");
+            System.out.println("5. Edit 1 slang word.");
+            System.out.println("6. Delete 1 slang word. Confirm trước khi xoá.");
+            System.out.println("7. Reset danh sách slang words gốc.");
+            System.out.println("8. Random 1 slang word (On this day slang word.");
+            System.out.println("9. Đố vui: Tìm definition cho slang word.");
+            System.out.println("10. Đố vui: Tìm slang word cho definition.");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+
+            }
+        }
+    }
+
     private boolean isEmpty(String string){
         return string == null || string.isEmpty();
     }
