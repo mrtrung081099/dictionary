@@ -1,5 +1,8 @@
 package services;
 
+import dto.SlangWordInfo;
+import enums.FilePath;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +15,7 @@ public class DictionaryServiceImpl implements DictionaryService{
         dictionary = new HashMap<>();
         searchHistory = new ArrayList<>();
         scanner = new Scanner(System.in);
+        loadDictionaryFromFile(FilePath.SLANG.url);
     }
 
     @Override
@@ -23,7 +27,7 @@ public class DictionaryServiceImpl implements DictionaryService{
                 if (parts.length == 2) {
                     String key = parts[0].trim();
                     String value = parts[1].trim();
-                    dictionary.put(key, value);
+                    dictionary.put(key.toUpperCase(), value);
                 }
             }
         } catch (IOException e) {
@@ -36,7 +40,7 @@ public class DictionaryServiceImpl implements DictionaryService{
         if(isEmpty(slangWord))
             return null;
         searchHistory.add(slangWord);
-        return dictionary.get(slangWord);
+        return dictionary.get(slangWord.toUpperCase());
     }
 
     @Override
@@ -45,14 +49,14 @@ public class DictionaryServiceImpl implements DictionaryService{
     }
 
     @Override
-    public List<String> getListByDefinition(String keyDefinition) {
+    public List<SlangWordInfo> getListByDefinition(String keyDefinition) {
         if(isEmpty(keyDefinition))
             return null;
-        List<String> result = new ArrayList<>();
+        List<SlangWordInfo> result = new ArrayList<>();
         for (String slang : dictionary.keySet()) {
             String definition = dictionary.get(slang);
             if (definition.contains(keyDefinition)) {
-                result.add(slang);
+                result.add(new SlangWordInfo(slang,definition));
             }
         }
         return result;
@@ -99,24 +103,50 @@ public class DictionaryServiceImpl implements DictionaryService{
     @Override
     public void run() {
         while (true) {
-            System.out.println("-----  LẬP TRÌNH ỨNG DỤNG JAVA : SLANG WORD  -----");
-            System.out.println("-----  Các chức năng  -----");
+            System.out.println("----- LẬP TRÌNH ỨNG DỤNG JAVA : SLANG WORD -----");
+            System.out.println("----- Các chức năng -----");
             System.out.println("1. Tìm kiếm theo slang word.");
-            System.out.println("2. Tìm kiếm theo definition, hiển thị ra tất cả các slang words mà trong defintion có chứa keyword gõ vào.");
+            System.out.println("2. Tìm kiếm theo definition.");
             System.out.println("3. Hiển thị history, danh sách các slang word đã tìm kiếm.");
             System.out.println("4. Add 1 slang words mới.");
             System.out.println("5. Edit 1 slang word.");
-            System.out.println("6. Delete 1 slang word. Confirm trước khi xoá.");
+            System.out.println("6. Delete 1 slang word.");
             System.out.println("7. Reset danh sách slang words gốc.");
             System.out.println("8. Random 1 slang word (On this day slang word.");
             System.out.println("9. Đố vui: Tìm definition cho slang word.");
             System.out.println("10. Đố vui: Tìm slang word cho definition.");
-            System.out.println("0. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.println("0. Thoát chương trình.");
+            System.out.print("Nhập lựa chọn của bạn: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
-
+                case 1:
+                    System.out.println("Nhập Slang word cần tìm kiếm :");
+                    String input1 = scanner.nextLine();
+                    String result1 = getBySlangWord(input1);
+                    if (result1 != null){
+                        System.out.println("Kết quả tìm kiếm : ");
+                        System.out.println(input1+": "+result1);
+                    }else {
+                        System.out.println("Slang word này không có .");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Nhập definition cần tìm kiếm :");
+                    String input2 = scanner.nextLine();
+                    List<SlangWordInfo> result2 = getListByDefinition(input2);
+                    if (result2 != null && !result2.isEmpty()){
+                        System.out.println("Kết quả tìm kiếm : ");
+                        for (SlangWordInfo info : result2){
+                            System.out.println(info.getKey()+": "+info.getValue());
+                        }
+                    }else {
+                        System.out.println("Không tìm thấy kết quả phù hợp .");
+                    }
+                    break;
+                case 3:
+                    System.out.println("Danh sách các slang word đã tìm kiếm :" + getListHistorySearch());
+                    break;
             }
         }
     }
