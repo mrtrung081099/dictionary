@@ -93,8 +93,18 @@ public class DictionaryServiceImpl implements DictionaryService{
     @Override
     public void delSlang(String slang) {
         if (dictionary.containsKey(slang)) {
-            dictionary.remove(slang);
-            System.out.println("Xóa slang word thành công !");
+            System.out.println("Xác nhận trước khi xóa :");
+            System.out.println("1. Xác nhận xóa slang");
+            System.out.println("2. Hủy");
+            String choose = scanner.nextLine();
+            switch (choose){
+                case "1":
+                    dictionary.remove(slang);
+                    System.out.println("Xóa slang word thành công !");
+                    break;
+                case "2":
+                    break;
+            }
         } else {
             System.out.println("Slang word không tồn tại !");
         }
@@ -146,6 +156,45 @@ public class DictionaryServiceImpl implements DictionaryService{
                     break;
                 case 3:
                     System.out.println("Danh sách các slang word đã tìm kiếm :" + getListHistorySearch());
+                    break;
+                case 4:
+                    System.out.println("Nhập slang word mới :");
+                    String slangAdd = scanner.nextLine();
+                    System.out.println("Nhập definition :");
+                    String definitionAdd = scanner.nextLine();
+                    addSlang(slangAdd.toUpperCase(),definitionAdd.toUpperCase());
+                    break;
+                case 5:
+                    System.out.println("Nhập slang word muốn chỉnh sửa :");
+                    String slangEdit = scanner.nextLine().toUpperCase();
+                    if(!dictionary.containsKey(slangEdit)){
+                        System.out.println("Slang word này chưa có, vui lòng thử lại !");
+                    }else {
+                        System.out.println("Nhập definition :");
+                        String definitionEdit = scanner.nextLine();
+                        dictionary.put(slangEdit,definitionEdit);
+                        System.out.println("Kết quả chỉnh sửa : ");
+                        System.out.println(slangEdit+": "+definitionEdit);
+                    }
+                    break;
+                case 6:
+                    System.out.println("Nhập slang word muốn xóa :");
+                    String slangDel = scanner.nextLine().toUpperCase();
+                    delSlang(slangDel);
+                    break;
+                case 7:
+                    System.out.println("Xác nhận reset danh sách slang words gốc :");
+                    System.out.println("1. Reset");
+                    System.out.println("2. Hủy");
+                    String choose = scanner.nextLine();
+                    switch (choose){
+                        case "1":
+                            loadDictionaryFromFile(FilePath.SLANG.url);
+                            System.out.println("Reset thành công !");
+                            break;
+                        case "2":
+                            break;
+                    }
                     break;
             }
         }
