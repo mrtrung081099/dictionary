@@ -12,5 +12,7 @@ public interface DictionaryService {
     List<SlangWordInfo> getListByDefinition(String keyDefinition);
     void addSlang(String slang, String definition);
     void delSlang(String slang);
+    void randomGameFindDefinition();
+    void randomGameFindSlang();
     void run();
 }

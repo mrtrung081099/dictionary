@@ -116,9 +116,57 @@ public class DictionaryServiceImpl implements DictionaryService{
     }
 
     @Override
+    public void randomGameFindDefinition() {
+        String slangAnswer = randomSlang();
+        String definitionAnswer = getBySlangWord(slangAnswer);
+        System.out.println("Trong những definition sau đây , đâu là definition của từ '"+ slangAnswer.toUpperCase()+"' :");
+        Random rand = new Random();
+        int indexAnswer = rand.nextInt(3);
+        List<String> question = List.of(new String[]{"A", "B", "C", "D"});
+        for (int i = 0 ; i < question.size(); i++){
+            if (i == indexAnswer){
+                System.out.println(question.get(i)+"."+definitionAnswer);
+            }else{
+                System.out.println(question.get(i)+"."+getBySlangWord(randomSlang()));
+            }
+        }
+        String choose = scanner.nextLine();
+        if (question.get(indexAnswer).equalsIgnoreCase(choose)){
+            System.out.println("Chúc mừng ! Câu trả lời hoàn toàn chính xác !");
+        }else {
+            System.out.println("Rất tiếc ! Sai mất rồi !");
+        }
+    }
+
+    @Override
+    public void randomGameFindSlang() {
+        String slangAnswer = randomSlang();
+        String definitionAnswer = getBySlangWord(slangAnswer);
+        System.out.println("Trong những slang word sau đây , đâu là slang word của câu '"+ definitionAnswer +"' :");
+        Random rand = new Random();
+        int indexAnswer = rand.nextInt(3);
+        List<String> question = List.of(new String[]{"A", "B", "C", "D"});
+        for (int i = 0 ; i < question.size(); i++){
+            if (i == indexAnswer){
+                System.out.println(question.get(i)+"."+slangAnswer);
+            }else{
+                System.out.println(question.get(i)+"."+randomSlang());
+            }
+        }
+        String choose = scanner.nextLine();
+        if (question.get(indexAnswer).equalsIgnoreCase(choose)){
+            System.out.println("Chúc mừng ! Câu trả lời hoàn toàn chính xác !");
+        }else {
+            System.out.println("Rất tiếc ! Sai mất rồi !");
+        }
+    }
+
+    @Override
     public void run() {
         try {
             while (true) {
+                System.out.println("");
+                System.out.println("");
                 System.out.println("----- LẬP TRÌNH ỨNG DỤNG JAVA : SLANG WORD -----");
                 System.out.println("----- Các chức năng -----");
                 System.out.println("1. Tìm kiếm theo slang word.");
@@ -204,6 +252,12 @@ public class DictionaryServiceImpl implements DictionaryService{
                         System.out.println("Slang ngẫu nhiên :");
                         String slangRandom = randomSlang();
                         System.out.println(slangRandom + ": " + getBySlangWord(slangRandom));
+                    }
+                    case 9 ->{
+                        randomGameFindDefinition();
+                    }
+                    case 10 ->{
+                         randomGameFindSlang();
                     }
                 }
             }
