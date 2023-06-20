@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 public class DictionaryServiceImpl implements DictionaryService{
-    private final Map<String, String> dictionary;
+    private Map<String, String> dictionary;
     private final List<String> searchHistory;
     private final Scanner scanner;
     public DictionaryServiceImpl() {
@@ -21,6 +21,7 @@ public class DictionaryServiceImpl implements DictionaryService{
     @Override
     public void loadDictionaryFromFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            dictionary = new HashMap<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("`");
@@ -214,7 +215,7 @@ public class DictionaryServiceImpl implements DictionaryService{
                         String slangAdd = scanner.nextLine();
                         System.out.println("Nhập definition :");
                         String definitionAdd = scanner.nextLine();
-                        addSlang(slangAdd.toUpperCase(), definitionAdd.toUpperCase());
+                        addSlang(slangAdd.toUpperCase(), definitionAdd);
                     }
                     case 5 -> {
                         System.out.println("Nhập slang word muốn chỉnh sửa :");
